@@ -4,6 +4,7 @@ const ramenMenu = document.getElementById("ramen-menu")
 const ramenDetail = document.getElementById("ramen-detail")
 const ratingForm = document.getElementById("ramen-rating")
 const newRamenForm = document.getElementById("new-ramen")
+const deleteBtn = ratingForm.querySelector("#delete-button")
 
 //Event Listeners
 document.addEventListener('DOMContentLoaded', function () {
@@ -20,6 +21,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 ratingForm.addEventListener("submit", handleRamenRatingSubmit)
 newRamenForm.addEventListener("submit", handleNewRamenSubmit)
+
+deleteBtn.addEventListener("click", function (event) {
+    event.preventDefault()
+    ramenMenu.innerHTML = null
+    // const deletedImage = ramenDetail.querySelector("img").querySelector(`[data-id="${ramenDetail.dataset.id}"]`)
+    // deletedImage.remove()
+    deleteRamen(ramenDetail.dataset.id)
+        .then(data => {
+            getRamen()
+                .then(ramenArray => {
+                console.log(ramenArray)
+                renderAllRamens(ramenArray)
+                getRamen()
+                    .then(ramenArray => {
+                        renderRamenDetails(ramenArray[0])
+                    })
+            })
+        })
+    
+})
 
 //Fetches
 function getRamen(id) {
@@ -78,13 +99,13 @@ function handleRamenRatingSubmit(event) {
 
 function handleNewRamenSubmit(event) {
     event.preventDefault()
-        const newRamen = {
-            name: event.target.name.value,
-            restaurant: event.target.restaurant.value,
-            image: event.target.image.value,
-            rating: event.target.rating.value,
-            comment: event.target.comments.value
-        }
+    const newRamen = {
+        name: event.target.name.value,
+        restaurant: event.target.restaurant.value,
+        image: event.target.image.value,
+        rating: event.target.rating.value ? event.target.rating.value : 0,
+        comment: event.target.comments.value === "Insert Comment Here" ? "No Comments Yet" : event.target.comments.value
+    }
    
     createNewRamen(newRamen)
         .then(newRamenObj => {
@@ -122,21 +143,6 @@ function renderAllRamens(ramenArray) {
 
 function renderRamenDetails(ramenObj) {
     ramenDetail.dataset.id = ramenObj.id
-    const deleteBtn = ratingForm.querySelector("#delete-button")
-    deleteBtn.addEventListener("click", function (event) {
-        event.preventDefault()
-        ramenMenu.innerHTML = null
-        deleteRamen(ramenDetail.dataset.id)
-        getRamen()
-            .then(ramenArray => {
-                // console.log(ramenArray)
-                renderAllRamens(ramenArray)
-                getRamen()
-                    .then(ramenArray => {
-                        renderRamenDetails(ramenArray[0])
-                    })
-            })
-    })
     ratingForm.dataset.id = ramenObj.id
     const rating = document.getElementById("rating")
     const comment = document.getElementById("comment")

@@ -23,6 +23,30 @@
       "image": "./assets/ramen/nirvana.jpg",
       "rating": "7",
       "comment": "Do buy the hype."
+    },
+    {
+      "id": 4,
+      "name": "Gyukotsu Ramen",
+      "restaurant": "Za-Ya Ramen",
+      "image": "./assets/ramen/gyukotsu.jpg",
+      "rating": 8,
+      "comment": "Good to the last drop."
+    },
+    {
+      "name": "Ori Markowitz",
+      "restaurant": "Ori's",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Shoyu_Ramen.jpg/1200px-Shoyu_Ramen.jpg",
+      "rating": 0,
+      "comment": "Insert Comment Here",
+      "id": 6
+    },
+    {
+      "name": "Ori Ramen",
+      "restaurant": "Ori's Dojo",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Shoyu_Ramen.jpg/1200px-Shoyu_Ramen.jpg",
+      "rating": 0,
+      "comment": "No Comments Yet",
+      "id": 7
     }
   ]
 }
